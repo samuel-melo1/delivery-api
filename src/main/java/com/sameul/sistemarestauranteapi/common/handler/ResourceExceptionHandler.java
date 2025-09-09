@@ -33,14 +33,6 @@ public class ResourceExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    private ResponseEntity<ErrorMessage> runtimeExceptionError(ObjectAlreadyExistException exception,
-                                                                     HttpServletRequest request) {
-        ErrorMessage error = new ErrorMessage(Instant.now(), HttpStatus.BAD_REQUEST.value(),
-                exception.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);

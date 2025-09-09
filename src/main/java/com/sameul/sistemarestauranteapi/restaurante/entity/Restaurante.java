@@ -1,9 +1,7 @@
 package com.sameul.sistemarestauranteapi.restaurante.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +17,8 @@ public class Restaurante implements Serializable {
     private String nome;
     private String endereco;
     private String cnpj;
-    private Integer status;
+    @Enumerated(EnumType.STRING)
+    private RestauranteStatus status;
 
     public Restaurante(){}
 
@@ -27,7 +26,7 @@ public class Restaurante implements Serializable {
         this.nome = nome;
         this.endereco = endereco;
         this.cnpj = cnpj;
-        this.status = 1;
+        this.status = RestauranteStatus.ATIVO;
     }
 
     public Integer getId() {
@@ -62,11 +61,11 @@ public class Restaurante implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public Integer getStatus() {
-        return status;
+    public void setStatus(RestauranteStatus status) {
+        this.status = status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public RestauranteStatus getStatus() {
+        return status;
     }
 }

@@ -1,5 +1,6 @@
 package com.sameul.sistemarestauranteapi.restaurante.service;
 
+import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteStatus;
 import com.sameul.sistemarestauranteapi.restaurante.repository.RestauranteRepository;
 import com.sameul.sistemarestauranteapi.restaurante.request.RestauranteRequest;
 import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
@@ -19,25 +20,30 @@ public class RestauranteService {
     }
 
     public void salvar(RestauranteRequest dto){
-        validarCpfDuplicado(dto.getCnpj());
+        validarCnpjDuplicado(dto.getCnpj());
         Restaurante restaurante = new Restaurante(dto.getNome(), dto.getEndereco(), dto.getCnpj());
         repository.save(restaurante);
     }
-    public List<RestauranteRequest> listarRestaurantes(){
-        List<Restaurante> restaurantes = repository.findAll();
+    public List<RestauranteRequest> listarRestaurantes(RestauranteStatus status){
+        List<Restaurante> restaurantes;
+        if (status != RestauranteStatus.TODOS) {
+            restaurantes = repository.findByStatus(status);
+        }else{
+            restaurantes = repository.findAll();
+        }
         return restaurantes.stream()
-                .map(restaurante -> new RestauranteRequest(restaurante.getNome(),
-                        restaurante.getCnpj(), restaurante.getEndereco()))
+                .map(restaurante -> new RestauranteRequest(restaurante.getId(), restaurante.getNome(),
+                        restaurante.getCnpj(), restaurante.getEndereco(), restaurante.getStatus()))
                 .collect(Collectors.toList());
     }
-    public void alterarStatusRestaurante(int restauranteId, int status){
+    public void alterarStatusRestaurante(int restauranteId, RestauranteStatus status){
         Restaurante restaurante = repository.findById(restauranteId)
                 .orElseThrow(() -> new ObjectNotFoundException("Restaurante não encontrado no sistema"));
 
-        restaurante.setStatus(status);
+         restaurante.setStatus(status);
         repository.save(restaurante);
     }
-    private void validarCpfDuplicado(String cnpj){
+    private void validarCnpjDuplicado(String cnpj){
         if (repository.existsRestauranteByCnpj(cnpj)) {
             throw new ObjectAlreadyExistException("Restaurante já está cadastrado no sistema");
         }

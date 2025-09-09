@@ -1,5 +1,6 @@
 package com.sameul.sistemarestauranteapi.restaurante.controller;
 
+import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteStatus;
 import com.sameul.sistemarestauranteapi.restaurante.request.RestauranteRequest;
 import com.sameul.sistemarestauranteapi.restaurante.service.RestauranteService;
 import jakarta.validation.Valid;
@@ -23,17 +24,17 @@ public class RestaurateController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @GetMapping
-    public ResponseEntity<List<RestauranteRequest>>listarRestaurantes(){
-        return ResponseEntity.status(HttpStatus.OK).body(service.listarRestaurantes());
+    public ResponseEntity<List<RestauranteRequest>>listarRestaurantes(@RequestParam(defaultValue = "TODOS") RestauranteStatus status){
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarRestaurantes(status));
     }
-    @PutMapping("/{id}/ativar")
+    @PutMapping("/ativar/{id}")
     public ResponseEntity<Void> ativar(@PathVariable Integer id) {
-        service.alterarStatusRestaurante(id, 1);
+        service.alterarStatusRestaurante(id, RestauranteStatus.ATIVO);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping("/{id}/inativar")
+    @PutMapping("/inativar/{id}")
     public ResponseEntity<Void> inativar(@PathVariable Integer id) {
-        service.alterarStatusRestaurante(id, 9);
+        service.alterarStatusRestaurante(id, RestauranteStatus.INATIVO);
         return ResponseEntity.noContent().build();
     }
 }

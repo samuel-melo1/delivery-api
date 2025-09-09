@@ -20,8 +20,9 @@ public class ComandaService {
             throw new RuntimeException("Não foi possível salvar a comanda. Erro: " + ex.getMessage());
         }
     }
-
     public void fecharComanda(){
 
     }
+
+
 }
