@@ -27,6 +27,11 @@ public class RestaurateController {
     public ResponseEntity<List<RestauranteRequest>>listarRestaurantes(@RequestParam(defaultValue = "TODOS") RestauranteStatus status){
         return ResponseEntity.status(HttpStatus.OK).body(service.listarRestaurantes(status));
     }
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<Void> atualizar(@RequestBody @Valid RestauranteRequest dto, @PathVariable Integer id) {
+        service.update(dto, id);
+        return ResponseEntity.noContent().build();
+    }
     @PutMapping("/ativar/{id}")
     public ResponseEntity<Void> ativar(@PathVariable Integer id) {
         service.alterarStatusRestaurante(id, RestauranteStatus.ATIVO);

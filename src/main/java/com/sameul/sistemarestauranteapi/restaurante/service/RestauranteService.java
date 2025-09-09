@@ -36,9 +36,20 @@ public class RestauranteService {
                         restaurante.getCnpj(), restaurante.getEndereco(), restaurante.getStatus()))
                 .collect(Collectors.toList());
     }
+
+    public void update(RestauranteRequest dto, Integer id){
+        Restaurante restaurante = repository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Restaurante inválido ou não encontrado"));
+
+        restaurante.setStatus(dto.getStatus());
+        restaurante.setEndereco(dto.getEndereco());
+        restaurante.setNome(dto.getNome());
+        repository.save(restaurante);
+    }
+
     public void alterarStatusRestaurante(int restauranteId, RestauranteStatus status){
         Restaurante restaurante = repository.findById(restauranteId)
-                .orElseThrow(() -> new ObjectNotFoundException("Restaurante não encontrado no sistema"));
+                .orElseThrow(() -> new ObjectNotFoundException("Restaurante inválido ou não encontrado"));
 
          restaurante.setStatus(status);
         repository.save(restaurante);

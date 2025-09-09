@@ -26,6 +26,9 @@ public class RestauranteRequest implements Serializable {
     public String getNome() {
         return nome;
     }
+    public RestauranteStatus getStatus() {
+        return status;
+    }
     public String getCnpj() {
         return cnpj;
     }
