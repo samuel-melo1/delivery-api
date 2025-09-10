@@ -6,6 +6,10 @@ import com.sameul.sistemarestauranteapi.restaurante.request.RestauranteRequest;
 import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectAlreadyExistException;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,17 +28,18 @@ public class RestauranteService {
         Restaurante restaurante = new Restaurante(dto.getNome(), dto.getEndereco(), dto.getCnpj());
         repository.save(restaurante);
     }
-    public List<RestauranteRequest> listarRestaurantes(RestauranteStatus status){
-        List<Restaurante> restaurantes;
+    public Page<RestauranteRequest> listarRestaurantes(int pageNumber, int pageSize,RestauranteStatus status){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Restaurante> restaurantes;
         if (status != RestauranteStatus.TODOS) {
-            restaurantes = repository.findByStatus(status);
+            restaurantes = repository.findByStatus(status,pageable);
         }else{
-            restaurantes = repository.findAll();
+            restaurantes = repository.findAll(pageable);
         }
-        return restaurantes.stream()
+        return new PageImpl<>(restaurantes.stream()
                 .map(restaurante -> new RestauranteRequest(restaurante.getId(), restaurante.getNome(),
                         restaurante.getCnpj(), restaurante.getEndereco(), restaurante.getStatus()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     public void update(RestauranteRequest dto, Integer id){

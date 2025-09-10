@@ -4,6 +4,7 @@ import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteStatus;
 import com.sameul.sistemarestauranteapi.restaurante.request.RestauranteRequest;
 import com.sameul.sistemarestauranteapi.restaurante.service.RestauranteService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,10 @@ public class RestaurateController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @GetMapping
-    public ResponseEntity<List<RestauranteRequest>>listarRestaurantes(@RequestParam(defaultValue = "TODOS") RestauranteStatus status){
-        return ResponseEntity.status(HttpStatus.OK).body(service.listarRestaurantes(status));
+    public ResponseEntity<Page<RestauranteRequest>>listarRestaurantes(@RequestParam(defaultValue = "TODOS") RestauranteStatus status,
+                                                                      @RequestParam(defaultValue = "0") Integer page,
+                                                                      @RequestParam(defaultValue = "10") Integer size){
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarRestaurantes(page, size, status));
     }
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody @Valid RestauranteRequest dto, @PathVariable Integer id) {
