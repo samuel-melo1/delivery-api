@@ -7,13 +7,9 @@ import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectAlreadyExistException;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RestauranteService {
@@ -36,10 +32,7 @@ public class RestauranteService {
         }else{
             restaurantes = repository.findAll(pageable);
         }
-        return new PageImpl<>(restaurantes.stream()
-                .map(restaurante -> new RestauranteRequest(restaurante.getId(), restaurante.getNome(),
-                        restaurante.getCnpj(), restaurante.getEndereco(), restaurante.getStatus()))
-                .collect(Collectors.toList()));
+        return restaurantes.map(this::convertToDto);
     }
 
     public void update(RestauranteRequest dto, Integer id){
@@ -63,5 +56,15 @@ public class RestauranteService {
         if (repository.existsRestauranteByCnpj(cnpj)) {
             throw new ObjectAlreadyExistException("Restaurante já está cadastrado no sistema");
         }
+    }
+
+    private RestauranteRequest convertToDto(Restaurante restaurante) {
+        RestauranteRequest dto = new RestauranteRequest();
+        dto.setId(restaurante.getId());
+        dto.setNome(restaurante.getNome());
+        dto.setCnpj(restaurante.getCnpj());
+        dto.setStatus(restaurante.getStatus());
+        dto.setEndereco(restaurante.getEndereco());
+        return dto;
     }
 }
