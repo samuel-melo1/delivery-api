@@ -8,7 +8,7 @@ public interface RestauranteService {
 
     void salvar(RestauranteRequest dto);
     Page<RestauranteRequest>  listarRestaurantes(int pageNumber, int pageSize, RestauranteStatus status);
-    void update(RestauranteRequest dto, Integer id);
+    void atualizar(RestauranteRequest dto, Integer id);
     void alterarStatusRestaurante(int restauranteId, RestauranteStatus status);
 
 }

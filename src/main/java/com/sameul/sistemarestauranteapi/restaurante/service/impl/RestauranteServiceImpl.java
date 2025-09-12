@@ -3,6 +3,7 @@ package com.sameul.sistemarestauranteapi.restaurante.service.impl;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectAlreadyExistException;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectNotFoundException;
 import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
+import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteErrorCode;
 import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteStatus;
 import com.sameul.sistemarestauranteapi.restaurante.mapper.RestauranteMapper;
 import com.sameul.sistemarestauranteapi.restaurante.repository.RestauranteRepository;
@@ -45,7 +46,7 @@ public class RestauranteServiceImpl implements RestauranteService {
 
     @Override
     @Transactional
-    public void update(RestauranteRequest dto, Integer id){
+    public void atualizar(RestauranteRequest dto, Integer id){
         Restaurante restaurante = findById(id);
         restaurante.setStatus(dto.getStatus());
         restaurante.setEndereco(dto.getEndereco());
@@ -62,13 +63,13 @@ public class RestauranteServiceImpl implements RestauranteService {
     }
     private void validarCnpjDuplicado(String cnpj){
         if (repository.existsRestauranteByCnpj(cnpj)) {
-            throw new ObjectAlreadyExistException("Restaurante já está cadastrado no sistema");
+            throw new ObjectAlreadyExistException(RestauranteErrorCode.RESTAURANTE_JA_EXISTENTE);
         }
     }
 
     private Restaurante findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Restaurante com ID " + id + " não encontrado."));
+                .orElseThrow(() -> new ObjectNotFoundException(RestauranteErrorCode.RESTAURANTE_NAO_ENCONTRADO));
     }
 
 }

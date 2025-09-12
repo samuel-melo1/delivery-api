@@ -32,7 +32,7 @@ public class RestaurateController {
     }
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody @Valid RestauranteRequest dto, @PathVariable Integer id) {
-        service.update(dto, id);
+        service.atualizar(dto, id);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/ativar/{id}")
