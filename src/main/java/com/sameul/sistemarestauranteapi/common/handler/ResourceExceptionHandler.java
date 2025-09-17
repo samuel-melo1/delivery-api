@@ -33,6 +33,14 @@ public class ResourceExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(Exception.class)
+    private ResponseEntity<ErrorMessage> genericException(Exception exception,
+                                                                     HttpServletRequest request) {
+        ErrorMessage error = new ErrorMessage(Instant.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                exception.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
