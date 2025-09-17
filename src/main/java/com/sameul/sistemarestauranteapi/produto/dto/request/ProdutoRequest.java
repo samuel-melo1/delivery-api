@@ -1,4 +1,5 @@
-package com.sameul.sistemarestauranteapi.produto.controller.request;
+package com.sameul.sistemarestauranteapi.produto.dto.request;
+
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -14,5 +15,11 @@ public class ProdutoRequest {
     }
     public Float getPreco() {
         return preco;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    public void setPreco(Float preco) {
+        this.preco = preco;
     }
 }
