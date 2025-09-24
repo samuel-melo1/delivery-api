@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 
 public interface ProdutoService {
     ProdutoResponse salvar(ProdutoRequest request);
-    ProdutoResponse buscarProdutoPorId(Integer id);
-
-    Page<ProdutoResponse> listarProdutos(int page, int size); 
+    ProdutoResponse buscarPorId(Integer id);
+    Page<ProdutoResponse> listar(int page, int size);
+    void deletar(Integer id);
 }
