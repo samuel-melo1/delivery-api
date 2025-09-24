@@ -1,6 +1,5 @@
 package com.sameul.sistemarestauranteapi.produto.dto.response;
 
-import jakarta.validation.constraints.NotBlank;
 
 public class ProdutoResponse {
 

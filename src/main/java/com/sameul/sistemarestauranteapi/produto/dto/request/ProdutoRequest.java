@@ -2,12 +2,14 @@ package com.sameul.sistemarestauranteapi.produto.dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.mapstruct.Builder;
 
 public class ProdutoRequest {
 
     @NotBlank(message = "É necessário informar o nome do produto")
     private String descricao;
-    @NotBlank(message = "É necessário informar o preço do produto")
+    @NotNull(message = "É necessário informar o preço do produto")
     private Float preco;
 
     public String getDescricao() {
