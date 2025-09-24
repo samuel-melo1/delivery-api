@@ -25,6 +25,7 @@ public class Produto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
+    public Produto(){}
     public Produto(String descricao, Float preco) {
         this.descricao = descricao;
         this.preco = preco;
