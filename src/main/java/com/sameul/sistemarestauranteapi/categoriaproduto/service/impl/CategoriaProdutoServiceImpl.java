@@ -59,13 +59,13 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
     @Override
     @Transactional
     public void deletar(Integer id) {
-        log.info("[CategoriaProduto] Buscando categoria do produto para deletar. ID: {}", id);
+        log.info("[CategoriaProdutoServiceImpl] Buscando categoria do produto para deletar. ID: {}", id);
         CategoriaProduto produto = repository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Categoria do Produto não encontrada. ID: {}", id);
                     return new ObjectNotFoundException(CategoriaProdutoErrorCode.CATEGORIA_PRODUTO_NAO_ENCONTRADA);
                 });
         repository.delete(produto);
-        log.info("[CategoriaProduto] Categoria do Produto deletada com sucesso. ID: {}", id);
+        log.info("[CategoriaProdutoServiceImpl] Categoria do Produto deletada com sucesso. ID: {}", id);
     }
 }
