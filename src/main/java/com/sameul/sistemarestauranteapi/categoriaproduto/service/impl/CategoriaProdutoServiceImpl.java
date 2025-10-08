@@ -36,7 +36,7 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
         categoriaProduto.setStatus(CategoriaProdutoStatus.ATIVO);
 
         CategoriaProduto categoriaProdutoSalva = repository.save(categoriaProduto);
-        log.info("[CategoriaProduto] Categoria do produto salva com sucesso com ID: {}", categoriaProdutoSalva.getId());
+        log.info("[CategoriaProdutoServiceImpl] Categoria do produto salva com sucesso com ID: {}", categoriaProdutoSalva.getId());
         CategoriaProdutoResponse categoriaMapeada = mapper.categoriaProdutoToResponse(categoriaProdutoSalva);
         return categoriaMapeada;
     }
