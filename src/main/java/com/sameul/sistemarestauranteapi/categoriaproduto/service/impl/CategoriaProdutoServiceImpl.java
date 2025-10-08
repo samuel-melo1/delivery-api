@@ -31,7 +31,7 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
     @Override
     @Transactional
     public CategoriaProdutoResponse salvar(CategoriaProdutoRequest request) {
-        log.info("[CategoriaProduto] Iniciando processo para salvar categoria produto: {}", request.getDescricao());
+        log.info("[CategoriaProdutoServiceImpl] Iniciando processo para salvar categoria produto: {}", request.getDescricao());
         CategoriaProduto categoriaProduto = mapper.requestToEntity(request);
         categoriaProduto.setStatus(CategoriaProdutoStatus.ATIVO);
 
