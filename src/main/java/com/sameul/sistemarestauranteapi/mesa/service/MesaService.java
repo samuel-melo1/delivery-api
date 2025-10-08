@@ -5,6 +5,7 @@ import com.sameul.sistemarestauranteapi.mesa.entity.Mesa;
 import com.sameul.sistemarestauranteapi.mesa.enums.MesaStatus;
 import com.sameul.sistemarestauranteapi.mesa.repository.MesaRepository;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectNotFoundException;
+import com.sameul.sistemarestauranteapi.restaurante.enums.RestauranteErrorCode;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,8 +26,8 @@ public class MesaService {
         }
     }
     public void alterarStatusMesa(int mesaId, MesaStatus status){
-        Mesa mesa = repository.findById(mesaId).orElseThrow(
-                () -> new ObjectNotFoundException("Mesa inválida ou não encontrada"));
+        Mesa mesa = repository.findById(mesaId)
+                .orElseThrow(() -> new ObjectNotFoundException(RestauranteErrorCode.RESTAURANTE_NAO_ENCONTRADO));
 
         mesa.setStatus(status);
         repository.save(mesa);

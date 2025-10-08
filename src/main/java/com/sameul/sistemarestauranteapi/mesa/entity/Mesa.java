@@ -3,13 +3,8 @@ package com.sameul.sistemarestauranteapi.mesa.entity;
 import com.sameul.sistemarestauranteapi.comanda.entity.Comanda;
 import com.sameul.sistemarestauranteapi.mesa.enums.MesaStatus;
 import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,6 +14,7 @@ public class Mesa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Enumerated(EnumType.STRING)
     private MesaStatus status;
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
@@ -26,7 +22,6 @@ public class Mesa implements Serializable {
     @OneToMany
     @JoinColumn(name = "mesa_id")
     private List<Comanda> comandas;
-
     public Mesa(){}
     public Mesa(MesaStatus status, Restaurante restaurante) {
         this.status = status;

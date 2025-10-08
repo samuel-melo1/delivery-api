@@ -10,7 +10,6 @@ import com.sameul.sistemarestauranteapi.categoriaproduto.repository.CategoriaPro
 import com.sameul.sistemarestauranteapi.categoriaproduto.service.CategoriaProdutoService;
 import com.sameul.sistemarestauranteapi.common.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,13 +18,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
 
     private final CategoriaProdutoRepository repository;
     private final CategoriaProdutoMapper mapper;
     private static final Logger log = LoggerFactory.getLogger(CategoriaProdutoServiceImpl.class);
+    public CategoriaProdutoServiceImpl(CategoriaProdutoRepository repository, CategoriaProdutoMapper mapper){
+        this.repository = repository;
+        this.mapper = mapper;
+    }
     @Override
     @Transactional
     public CategoriaProdutoResponse salvar(CategoriaProdutoRequest request) {
@@ -35,7 +37,8 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
 
         CategoriaProduto categoriaProdutoSalva = repository.save(categoriaProduto);
         log.info("[CategoriaProduto] Categoria do produto salva com sucesso com ID: {}", categoriaProdutoSalva.getId());
-        return mapper.categoriaProdutoToResponse(categoriaProdutoSalva);
+        CategoriaProdutoResponse categoriaMapeada = mapper.categoriaProdutoToResponse(categoriaProdutoSalva);
+        return categoriaMapeada;
     }
 
     @Override
