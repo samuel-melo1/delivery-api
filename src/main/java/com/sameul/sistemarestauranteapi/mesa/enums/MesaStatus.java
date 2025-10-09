@@ -1,15 +1,14 @@
 package com.sameul.sistemarestauranteapi.mesa.enums;
 public enum MesaStatus {
 
-    LIVRE(1),
-    OCUPADA(2);
+    LIVRE("LIVRE"),
+    OCUPADA("OCUPADA");
 
-    private final int status;
-
-    MesaStatus(int status){
+    private String status;
+    MesaStatus(String status) {
         this.status = status;
     }
-    public int getStatus(){
+    public String getStatus() {
         return status;
     }
 
