@@ -1,5 +1,6 @@
 package com.sameul.sistemarestauranteapi.produto.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sameul.sistemarestauranteapi.categoriaproduto.entity.CategoriaProduto;
 import com.sameul.sistemarestauranteapi.produto.enums.ProdutoStatus;
 import com.sameul.sistemarestauranteapi.restaurante.entity.Restaurante;
@@ -21,6 +22,7 @@ public class Produto implements Serializable {
     private ProdutoStatus status;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
+    @JsonBackReference
     private CategoriaProduto categoria;
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
