@@ -33,6 +33,10 @@ public class CategoriaProdutoController {
                                                                 @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.status(HttpStatus.OK).body(service.listar(page, size));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaProdutoResponse> buscarPorId(@PathVariable("id") Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable("id") Integer id){
         service.deletar(id);
