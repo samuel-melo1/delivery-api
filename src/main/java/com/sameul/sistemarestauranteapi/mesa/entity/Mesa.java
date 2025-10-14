@@ -14,6 +14,9 @@ public class Mesa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "numero_mesa", nullable = false, unique = true)
+    private Integer numeroMesa;
     @Enumerated(EnumType.STRING)
     private MesaStatus status;
     @ManyToOne
@@ -23,9 +26,10 @@ public class Mesa implements Serializable {
     @JoinColumn(name = "mesa_id")
     private List<Comanda> comandas;
     public Mesa(){}
-    public Mesa(MesaStatus status, Restaurante restaurante) {
-        this.status = status;
-        this.restaurante = restaurante;
+    public Mesa(Integer numeroMesa) {
+        this.status = MesaStatus.LIVRE;
+        this.restaurante = getRestaurante();
+        this.numeroMesa = numeroMesa;
     }
     public Integer getId() {
         return id;
@@ -50,5 +54,11 @@ public class Mesa implements Serializable {
     }
     public void setComandas(List<Comanda> comandas) {
         this.comandas = comandas;
+    }
+    public Integer getNumeroMesa() {
+        return numeroMesa;
+    }
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
     }
 }
