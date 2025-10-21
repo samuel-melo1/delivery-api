@@ -1,4 +1,4 @@
-package com.sameul.sistemarestauranteapi.mesa.request;
+package com.sameul.sistemarestauranteapi.mesa.dto.request;
 
 public class MesaRequest {
     private Integer numeroMesa;
