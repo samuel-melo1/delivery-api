@@ -8,4 +8,7 @@ public class MesaRequest {
     public Integer getNumeroMesa() {
         return numeroMesa;
     }
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
 }

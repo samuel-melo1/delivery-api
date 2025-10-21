@@ -4,26 +4,18 @@ import com.sameul.sistemarestauranteapi.mesa.enums.MesaStatus;
 
 public class MesaResponse {
 
-    private Integer idMesa;
-    private String nome;
+    private Integer numeroMesa;
     private MesaStatus status;
     public MesaResponse(){}
-    public MesaResponse(Integer idMesa, String nome, MesaStatus status) {
-        this.idMesa = idMesa;
-        this.nome = nome;
+    public MesaResponse(Integer numeroMesa, MesaStatus status) {
+        this.numeroMesa = numeroMesa;
         this.status = status;
     }
-    public Integer getIdMesa() {
-        return idMesa;
+    public Integer getNumeroMesa() {
+        return numeroMesa;
     }
-    public void setIdMesa(Integer idMesa) {
-        this.idMesa = idMesa;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
     }
     public MesaStatus getStatus() {
         return status;

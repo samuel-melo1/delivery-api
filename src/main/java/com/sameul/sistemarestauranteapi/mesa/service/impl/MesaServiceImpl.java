@@ -16,7 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MesaServiceImpl implements MesaService {
@@ -28,6 +31,12 @@ public class MesaServiceImpl implements MesaService {
         this.mapper = mapper;
     }
 
+    @Override
+    public List<MesaResponse> getAll() {
+        return repository.findAll()
+                .stream().map(mapper::mesaToResponse)
+                .collect(Collectors.toList());
+    }
     @Override
     public void salvar(MesaRequest request){
         log.info("Criando mesa. Número mesa: {}", request.getNumeroMesa());
